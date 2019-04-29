@@ -1,6 +1,6 @@
 const server=require("express")();
 const line=require("@line/bot-sdk");
-const request=require("request");
+const request=require('request');
 
 const gglplaceApi=`https://maps.googleapis.com/maps/api/place/nearbysearch/json?`;
 const gglMapApi="https://maps.googleapis.com/maps/api/js";
