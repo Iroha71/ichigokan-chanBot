@@ -14,10 +14,17 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
     let evt_prc=[];
     req.body.events.forEach((event) => {
         if(event.type=="message" && event.message.type=="text"){
-            if(event.message.text=="こんにちは"){
+            if(event.message.text=="こんにちは" ||event.message.text=="にゃにゃ"){
                 evt_prc.push(bot.replyMessage(event.replyToken,{
-                    type: "text",
-                    text: "にゃにゃ～♪"
+                    type: "buttons",
+                    text: "にゃにゃ～♪",
+                    actions: [
+                        {
+                            type: "text",
+                            label: "にゃ",
+                            text: "にゃにゃ"
+                        }
+                    ]
                 }));
             }
         }
