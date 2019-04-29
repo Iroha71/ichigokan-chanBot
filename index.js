@@ -16,19 +16,8 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="こんにちは" ||event.message.text=="にゃにゃ"){
                 evt_prc.push(bot.replyMessage(event.replyToken,{
-                    type: "template",
-                    template: {
-                        type: "buttons",
-                        title: "にゃ！",
-                        text: "ボタンを押す",
-                        // actions: [
-                        //     {
-                        //         type: "text",
-                        //         label: "ボタン",
-                        //         text: "にゃにゃ"
-                        //     }
-                        // ]
-                    }
+                    type: "buttons",
+                    text:"にゃ"
                 }));
             }
         }
