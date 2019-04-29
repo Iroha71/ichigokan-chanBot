@@ -92,7 +92,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     }
                     const resp={
                         "type": "carousel",
-                        "contents": res
+                        "columns": res
                     }
                     bot.replyMessage(event.replyToken,resp);
                 })
