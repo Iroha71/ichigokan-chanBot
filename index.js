@@ -27,7 +27,6 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                 },
                 json: true
             },function(err,req,data){
-                console.log(data.results);
                 let res=[];
                 for(let i=0;i<3;i++){
                     res[i]={
@@ -42,22 +41,20 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                         ]
                     }
                 }
-                const resp={
-                    "messages":[
-                        {
-                            "type": "text",
-                            "text": "こことかどうかな?"
-                        },
-                        {
-                            "type": "template",
-                            "altText": "検索結果",
-                            "template":{
-                                "type": "carousel",
-                                "columns": res
-                            }  
-                        }
-                    ]
-                };
+                const resp=[
+                    {
+                        "type": "text",
+                        "text": "こことかどうかな?"
+                    },
+                    {
+                        "type": "template",
+                        "altText": "検索結果",
+                        "template":{
+                            "type": "carousel",
+                            "columns": res
+                        }  
+                    }
+                ];
                 bot.replyMessage(event.replyToken,resp);
             })
         }
