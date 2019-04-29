@@ -33,43 +33,69 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     console.log(data.results);
                     let res=[];
                     for(let i=0;i<3;i++){
+                        // res[i]={
+                        //     "type": "bubble",
+                        //     "body":{
+                        //         "type": "box",
+                        //         "layout": "horizontal",
+                        //         "contents":[
+                        //             {
+                        //                 "type": "text",
+                        //                 "text": data.results[i].name,  
+                        //             }
+                        //         ]
+                        //     },
+                        //     "footer":{
+                        //         "type":"box",
+                        //         "layout": "horizontal",
+                        //         "contents":[
+                        //             {
+                        //                 "type": "button",
+                        //                 "style": "primary",
+                        //                 "action":{
+                        //                     "type": "text",
+                        //                     "label":"気になる",
+                        //                     "text": "にゃにゃ"
+                        //                 }
+                        //             }
+                        //         ]
+                        //     }
+                        // }
                         res[i]={
                             "type": "bubble",
-                            "body":{
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents":[
-                                    {
-                                        "type": "text",
-                                        "text": data.results[i].name,  
-                                    }
-                                ]
+                            "body": {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "wrap": true
+                                }
+                              ]
                             },
-                            "footer":{
-                                "type":"box",
-                                "layout": "horizontal",
-                                "contents":[
-                                    {
-                                        "type": "button",
-                                        "style": "primary",
-                                        "action":{
-                                            "type": "text",
-                                            "label":"気になる",
-                                            "text": "にゃにゃ"
-                                        }
-                                    }
-                                ]
+                            "footer": {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "button",
+                                  "style": "primary",
+                                  "action": {
+                                    "type": "uri",
+                                    "label": "Go",
+                                    "uri": "https://example.com"
+                                  }
+                                }]
                             }
                         }
                     }
-                    // const res=[data.results[0],data.results[1],data.results[2]]
                     const resp={
                         "type": "carousel",
-                        "contents":res
+                        "contents": res
                     }
                     bot.replyMessage(event.replyToken,resp);
                 })
-                
             }
         }
     });
