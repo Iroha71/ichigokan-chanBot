@@ -61,38 +61,35 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                         //         ]
                         //     }
                         // }
-                        res[i]={
-                            "type": "bubble",
-                            "body": {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                                  "wrap": true
-                                }
-                              ]
-                            },
-                            "footer": {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "button",
-                                  "style": "primary",
-                                  "action": {
-                                    "type": "uri",
-                                    "label": "Go",
-                                    "uri": "https://example.com"
-                                  }
-                                }]
-                            }
-                        }
                     }
                     const resp={
-                        "type": "carousel",
-                        "columns": res
+                        "type": "template",
+                        "altText": "カルーセルテキスト",
+                        "template":{
+                            "type": "carousel",
+                            "columns":[
+                                {
+                                    "title": "menu",
+                                    "text": "text",
+                                    "actions":{
+                                        "type":"text",
+                                        "text":"にゃ"
+                                    }
+                                },
+                                {
+                                    "title": "menu2",
+                                    "text": "text",
+                                    "actions":{
+                                        "type":"text",
+                                        "text":"にゃ"
+                                    },
+                                    "defaultAction":{
+                                        "type":"text",
+                                        "text":"にゃ"
+                                    }
+                                }
+                            ]
+                        }
                     }
                     bot.replyMessage(event.replyToken,resp);
                 })
