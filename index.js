@@ -16,7 +16,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="こんにちは" ||event.message.text=="にゃにゃ"){
                 evt_prc.push(bot.replyMessage(event.replyToken,{
-                    type: "buttons",
+                    type: "template",
                     text: "にゃにゃ～♪",
                     actions: [
                         {
