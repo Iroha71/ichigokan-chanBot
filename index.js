@@ -20,8 +20,15 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="飲食店"){
                 request.get({
-                    uri: gglplaceApi+`key=${key}&location=33.5337369,130.3802676&radius=1500&language=ja&type=restaurant`,
+                    uri: gglplaceApi,
                     headers: {'Content-type': 'application/json'},
+                    qs:{
+                        key: key,
+                        location: '33.5337369,130.3802676',
+                        radius: 1500,
+                        language: 'ja',
+                        type: 'restaurant'
+                    },
                     json: true
                 },function(err,req,data){
                     console.log(data);
