@@ -74,7 +74,8 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                                 "title": "menu",
                                 "text": "text",
                                 "actions":[{
-                                    "type":"text",
+                                    "type":"message",
+                                    "label":"にゃ",
                                     "text":"にゃ"
                                 }]
                             },
@@ -82,17 +83,14 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                                 "title": "menu2",
                                 "text": "text",
                                 "actions":[{
-                                    "type":"text",
+                                    "type":"message",
+                                    "label":"にゃ",
                                     "text":"にゃ"
-                                }],
-                                "defaultAction":{
-                                    "type":"text",
-                                    "text":"にゃ"
-                                }
+                                }]
                             }
                         ]
                     }
-                }
+                };
                 bot.replyMessage(event.replyToken,resp);
             }
         }
