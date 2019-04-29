@@ -34,9 +34,10 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                         "text": data.results[i].formatted_address,
                         "actions":[
                             {
-                                "type": "message",
+                                "type": "postback",
                                 "label": "気になる",
-                                "text":"ここが気になる"
+                                "data": `lat=${data.results[i].geometry.location.lat}&lng=${data.results[i].geometry.location.lng}`,
+                                "displayText":"ここが気になる"
                             }
                         ]
                     }
@@ -57,6 +58,8 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                 ];
                 bot.replyMessage(event.replyToken,resp);
             })
+        }else if(event.type=="postback"){
+            console.log(event);
         }
     });
 });
