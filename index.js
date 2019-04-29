@@ -88,12 +88,12 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                 {
                     "type": "location",
                     "title": "場所",
-                    "address": event.postback.data['address'],
-                    "latitude": parseFloat(event.postback.data['lat']),
-                    "longitude": parseFloat(event.postback.data['lng'])
+                    "address": event.postback.data.address,
+                    "latitude": parseFloat(event.postback.data.lat),
+                    "longitude": parseFloat(event.postback.data.lng)
                 }
             ];
-            console.log(event.postback.data['lat'])
+            console.log(event.postback.data.lat)
             bot.replyMessage(event.replyToken,resp);
         }
     });
