@@ -22,9 +22,9 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
             }
         }
     });
-    Promise.all(evt_prc).then(
-        (response)=>{
-            console.log(`${response.length} events processed`);
-        }
-    );
+    // Promise.all(evt_prc).then(
+    //     (response)=>{
+    //         console.log(`${response.length} events processed`);
+    //     }
+    // );
 });
