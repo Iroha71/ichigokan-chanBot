@@ -36,7 +36,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                             {
                                 "type": "postback",
                                 "label": "気になる",
-                                "data": `lat=${data.results[i].geometry.location.lat}&lng=${data.results[i].geometry.location.lng}`,
+                                "data": `address=${data.results[i].formatted_address}&lat=${data.results[i].geometry.location.lat}&lng=${data.results[i].geometry.location.lng}`,
                                 "displayText":"ここが気になる"
                             }
                         ]
@@ -59,7 +59,19 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                 bot.replyMessage(event.replyToken,resp);
             })
         }else if(event.type=="postback"){
-            console.log(event);
+            const resp=[
+                {
+                    "type": "text",
+                    "text": "ここにあるよ!"
+                },
+                {
+                    "type": "location",
+                    "title": "場所",
+                    "address": event.postback.data['address'],
+                    "latitude": parseFloat(event.postback.data['lat']),
+                    "longitude": parseFloat(event.postback.data['lng'])
+                }
+            ]
         }
     });
 });
