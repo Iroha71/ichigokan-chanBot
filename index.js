@@ -31,22 +31,43 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     json: true
                 },function(err,req,data){
                     console.log(data.results);
-                    // const resp={
-                    //     "type": "carousel",
-                    //     "columns": 
-                    //     "template":{
-                    //         "type": "buttons",
-                    //         "text" :"テキスト",
-                    //         "actions":[
-                    //             {
-                    //                 "type": "message",
-                    //                 "label": "ラベル",
-                    //                 "text": "にゃにゃ"
-                    //             }
-                    //         ]
-                    //     }
-                    // }
-                    // bot.replyMessage(event.replyToken,resp);
+                    const res=[];
+                    for(let i=0;i<3;i++){
+                        res[i]={
+                            "type": "bubble",
+                            "body":{
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents":[
+                                    {
+                                        "type": "text",
+                                        "text": data.results[i].name,  
+                                    }
+                                ]
+                            },
+                            "footer":{
+                                "type":"box",
+                                "layout": "horizontal",
+                                "contents":[
+                                    {
+                                        "type": "button",
+                                        "style": "primary",
+                                        "action":{
+                                            "type": "text",
+                                            "label":"気になる",
+                                            "text": "にゃにゃ"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                    // const res=[data.results[0],data.results[1],data.results[2]]
+                    const resp={
+                        "type": "carousel",
+                        "contents":res,
+                    }
+                    bot.replyMessage(event.replyToken,resp);
                 })
                 
             }
