@@ -21,13 +21,13 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                         type: "buttons",
                         title: "にゃ！",
                         text: "ボタンを押す",
-                        actions: [
-                            {
-                                type: "text",
-                                label: "ボタン",
-                                text: "にゃにゃ"
-                            }
-                        ]
+                        // actions: [
+                        //     {
+                        //         type: "text",
+                        //         label: "ボタン",
+                        //         text: "にゃにゃ"
+                        //     }
+                        // ]
                     }
                 }));
             }
