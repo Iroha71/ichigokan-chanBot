@@ -3,7 +3,6 @@ const line=require("@line/bot-sdk");
 const request=require('request');
 
 const gglplaceApi=`https://maps.googleapis.com/maps/api/place/nearbysearch/json?`;
-const gglMapApi="https://maps.googleapis.com/maps/api/js";
 const key="AIzaSyD1kAwMRJfaAHuEtlL3qGRDlVxde0jiyKM";
 const line_config={
     channelAccessToken: process.env.LINE_ACCESS_TOKEN,
@@ -20,15 +19,8 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="飲食店"){
                 request.get({
-                    uri: gglplaceApi,
+                    uri: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD1kAwMRJfaAHuEtlL3qGRDlVxde0jiyKM&location=33.5337369,130.3802676&radius=1500&language=ja&type=restaurant',
                     headers: {'Content-type': 'application/json'},
-                    qs:{
-                        key: key,
-                        location: '33.5337369,130.3802676',
-                        radius: 1500,
-                        language: 'ja',
-                        type: 'restaurant'
-                    },
                     json: true
                 },function(err,req,data){
                     console.log(data);
