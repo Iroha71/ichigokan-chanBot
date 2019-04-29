@@ -15,49 +15,70 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
     res.sendStatus(200);
     req.body.events.forEach((event) => {
         if(event.type=="message" && event.message.type=="text"){
-            request.get({
-                uri: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
-                headers: {'Content-type': 'application/json'},
-                qs:{
-                    key: key,
-                    query: event.message.text,
-                    language: "ja",
-                    radius: 1500,
-                    location: "33.583389,130.421172"
-                },
-                json: true
-            },function(err,req,data){
-                let res=[];
-                for(let i=0;i<3;i++){
-                    res[i]={
-                        "title": data.results[i].name,
-                        "text": data.results[i].formatted_address,
-                        "actions":[
-                            {
-                                "type": "postback",
-                                "label": "気になる",
-                                "data": `address=${data.results[i].formatted_address}&lat=${data.results[i].geometry.location.lat}&lng=${data.results[i].geometry.location.lng}`,
-                                "displayText":"ここが気になる"
-                            }
-                        ]
-                    }
-                }
-                const resp=[
-                    {
-                        "type": "text",
-                        "text": "こことかどうかな?"
+            if(event.message.text=="ありがとう"){
+                request.get({
+                    uri: `https://api.line.me/v2/bot/profile/${event.source.userId}`,
+                    header: `Bearer ${line_config.channelAccessToken}`,
+                    json: true
+                },function(err,req,data){
+                    console.log(data);
+                    const resp=[
+                        {
+                            "type": "text",
+                            "text": `どういたしまして！${data.displayName}さんも遊んでくれてありがとう！！`
+                        },
+                        {
+                            "type": "text",
+                            "text": "ぜひ、また遊びに来てね♪"
+                        }
+                    ]
+                    bot.replyMessage(event.replyToken,resp);
+                })
+            }else{
+                request.get({
+                    uri: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
+                    headers: {'Content-type': 'application/json'},
+                    qs:{
+                        key: key,
+                        query: event.message.text,
+                        language: "ja",
+                        radius: 1500,
+                        location: "33.583389,130.421172"
                     },
-                    {
-                        "type": "template",
-                        "altText": "検索結果",
-                        "template":{
-                            "type": "carousel",
-                            "columns": res
-                        }  
+                    json: true
+                },function(err,req,data){
+                    let res=[];
+                    for(let i=0;i<3;i++){
+                        res[i]={
+                            "title": data.results[i].name,
+                            "text": data.results[i].formatted_address,
+                            "actions":[
+                                {
+                                    "type": "postback",
+                                    "label": "気になる",
+                                    "data": `address=${data.results[i].formatted_address}&lat=${data.results[i].geometry.location.lat}&lng=${data.results[i].geometry.location.lng}`,
+                                    "displayText":"ここが気になる"
+                                }
+                            ]
+                        }
                     }
-                ];
-                bot.replyMessage(event.replyToken,resp);
-            })
+                    const resp=[
+                        {
+                            "type": "text",
+                            "text": "こことかどうかな?"
+                        },
+                        {
+                            "type": "template",
+                            "altText": "検索結果",
+                            "template":{
+                                "type": "carousel",
+                                "columns": res
+                            }  
+                        }
+                    ];
+                    bot.replyMessage(event.replyToken,resp);
+                })
+            }
         }else if(event.type=="postback"){
             const resp=[
                 {
@@ -71,7 +92,8 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     "latitude": parseFloat(event.postback.data['lat']),
                     "longitude": parseFloat(event.postback.data['lng'])
                 }
-            ]
+            ];
+            bot.replyMessage(event.replyToken,resp);
         }
     });
 });
