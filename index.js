@@ -17,14 +17,18 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
             if(event.message.text=="こんにちは" ||event.message.text=="にゃにゃ"){
                 evt_prc.push(bot.replyMessage(event.replyToken,{
                     type: "template",
-                    text: "にゃにゃ～♪",
-                    actions: [
-                        {
-                            type: "text",
-                            label: "にゃ",
-                            text: "にゃにゃ"
-                        }
-                    ]
+                    template: {
+                        type: "buttons",
+                        title: "にゃ！",
+                        text: "ボタンを押す",
+                        actions: [
+                            {
+                                type: "text",
+                                label: "ボタン",
+                                text: "にゃにゃ"
+                            }
+                        ]
+                    }
                 }));
             }
         }
