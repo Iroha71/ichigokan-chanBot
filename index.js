@@ -19,28 +19,36 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="飲食店"){
                 request.get({
-                    uri: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD1kAwMRJfaAHuEtlL3qGRDlVxde0jiyKM&location=33.5337369,130.3802676&radius=1500&language=ja&type=restaurant',
+                    uri: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
                     headers: {'Content-type': 'application/json'},
+                    qs:{
+                        key: key,
+                        query: "レストラン",
+                        language: "ja",
+                        radius: 1500,
+                        location: "33.583389,130.421172"
+                    },
                     json: true
                 },function(err,req,data){
                     console.log(data);
+                    // const resp={
+                    //     "type": "carousel",
+                    //     "columns": 
+                    //     "template":{
+                    //         "type": "buttons",
+                    //         "text" :"テキスト",
+                    //         "actions":[
+                    //             {
+                    //                 "type": "message",
+                    //                 "label": "ラベル",
+                    //                 "text": "にゃにゃ"
+                    //             }
+                    //         ]
+                    //     }
+                    // }
+                    // bot.replyMessage(event.replyToken,resp);
                 })
-                const resp={
-                    "type": "template",
-                    "altText": "代替テキスト",
-                    "template":{
-                        "type": "buttons",
-                        "text" :"テキスト",
-                        "actions":[
-                            {
-                                "type": "message",
-                                "label": "ラベル",
-                                "text": "にゃにゃ"
-                            }
-                        ]
-                    }
-                }
-                bot.replyMessage(event.replyToken,resp)
+                
             }
         }
     });
