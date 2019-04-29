@@ -15,10 +15,22 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
     req.body.events.forEach((event) => {
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="こんにちは" ||event.message.text=="にゃにゃ"){
-                evt_prc.push(bot.replyMessage(event.replyToken,{
-                    type: "buttons",
-                    text:"にゃ"
-                }));
+                const resp={
+                    "type": "template",
+                    "altText": "代替テキスト",
+                    "template":{
+                        "type": "buttons",
+                        "text" :"テキスト",
+                        "actions":[
+                            {
+                                "type": "message",
+                                "label": "ラベル",
+                                "text": "テキスト"
+                            }
+                        ]
+                    }
+                }
+                bot.replyMessage(event.replyToken,resp)
             }
         }
     });
