@@ -56,7 +56,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                                 {
                                     "type": "postback",
                                     "label": "気になる",
-                                    "data": `address=${data.results[i].formatted_address}&lat=${data.results[i].geometry.location.lat}&lng=${data.results[i].geometry.location.lng}`,
+                                    "data": `${data.results[i].formatted_address}&${data.results[i].geometry.location.lat}&${data.results[i].geometry.location.lng}`,
                                     "displayText":"ここが気になる"
                                 }
                             ]
@@ -80,6 +80,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                 })
             }
         }else if(event.type=="postback"){
+            const address=event.postback.data.split("&");
             const resp=[
                 {
                     "type": "text",
@@ -88,12 +89,12 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                 {
                     "type": "location",
                     "title": "場所",
-                    "address": event.postback.data.address,
-                    "latitude": parseFloat(event.postback.data.lat),
-                    "longitude": parseFloat(event.postback.data.lng)
+                    "address": address[0],
+                    "latitude": parseFloat(address[1]),
+                    "longitude": parseFloat(address[2])
                 }
             ];
-            console.log(event.postback.data.lat)
+            console.log(address[0]);
             bot.replyMessage(event.replyToken,resp);
         }
     });
