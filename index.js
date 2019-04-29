@@ -18,7 +18,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
             if(event.message.text=="ありがとう"){
                 request.get({
                     uri: `https://api.line.me/v2/bot/profile/${event.source.userId}`,
-                    header: `Bearer ${line_config.channelAccessToken}`,
+                    headers: {'Authorization': `Bearer ${line_config.channelAccessToken}`},
                     json: true
                 },function(err,req,data){
                     console.log(data);
@@ -93,6 +93,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     "longitude": parseFloat(event.postback.data['lng'])
                 }
             ];
+            console.log(event.postback.data['lat'])
             bot.replyMessage(event.replyToken,resp);
         }
     });
