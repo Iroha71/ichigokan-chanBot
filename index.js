@@ -31,7 +31,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     json: true
                 },function(err,req,data){
                     console.log(data.results);
-                    const res=[];
+                    let res=[];
                     for(let i=0;i<3;i++){
                         res[i]={
                             "type": "bubble",
@@ -65,7 +65,7 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     // const res=[data.results[0],data.results[1],data.results[2]]
                     const resp={
                         "type": "carousel",
-                        "contents":res,
+                        "contents":res
                     }
                     bot.replyMessage(event.replyToken,resp);
                 })
