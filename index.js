@@ -43,12 +43,20 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     }
                 }
                 const resp={
-                    "type": "template",
-                    "altText": "検索結果",
-                    "template":{
-                        "type": "carousel",
-                        "columns": res
-                    }
+                    "messages":[
+                        {
+                            "type": "text",
+                            "text": "こことかどうかな?"
+                        },
+                        {
+                            "type": "template",
+                            "altText": "検索結果",
+                            "template":{
+                                "type": "carousel",
+                                "columns": res
+                            }  
+                        }
+                    ]
                 };
                 bot.replyMessage(event.replyToken,resp);
             })
