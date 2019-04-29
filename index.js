@@ -31,37 +31,37 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                     json: true
                 },function(err,req,data){
                     console.log(data.results);
-                    let res=[];
-                    for(let i=0;i<3;i++){
-                        // res[i]={
-                        //     "type": "bubble",
-                        //     "body":{
-                        //         "type": "box",
-                        //         "layout": "horizontal",
-                        //         "contents":[
-                        //             {
-                        //                 "type": "text",
-                        //                 "text": data.results[i].name,  
-                        //             }
-                        //         ]
-                        //     },
-                        //     "footer":{
-                        //         "type":"box",
-                        //         "layout": "horizontal",
-                        //         "contents":[
-                        //             {
-                        //                 "type": "button",
-                        //                 "style": "primary",
-                        //                 "action":{
-                        //                     "type": "text",
-                        //                     "label":"気になる",
-                        //                     "text": "にゃにゃ"
-                        //                 }
-                        //             }
-                        //         ]
-                        //     }
-                        // }
-                    }
+                    // let res=[];
+                    // for(let i=0;i<3;i++){
+                    //     // res[i]={
+                    //     //     "type": "bubble",
+                    //     //     "body":{
+                    //     //         "type": "box",
+                    //     //         "layout": "horizontal",
+                    //     //         "contents":[
+                    //     //             {
+                    //     //                 "type": "text",
+                    //     //                 "text": data.results[i].name,  
+                    //     //             }
+                    //     //         ]
+                    //     //     },
+                    //     //     "footer":{
+                    //     //         "type":"box",
+                    //     //         "layout": "horizontal",
+                    //     //         "contents":[
+                    //     //             {
+                    //     //                 "type": "button",
+                    //     //                 "style": "primary",
+                    //     //                 "action":{
+                    //     //                     "type": "text",
+                    //     //                     "label":"気になる",
+                    //     //                     "text": "にゃにゃ"
+                    //     //                 }
+                    //     //             }
+                    //     //         ]
+                    //     //     }
+                    //     // }
+                    // }
                     const resp={
                         "type": "template",
                         "altText": "カルーセルテキスト",
@@ -71,18 +71,18 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
                                 {
                                     "title": "menu",
                                     "text": "text",
-                                    "actions":{
+                                    "actions":[{
                                         "type":"text",
                                         "text":"にゃ"
-                                    }
+                                    }]
                                 },
                                 {
                                     "title": "menu2",
                                     "text": "text",
-                                    "actions":{
+                                    "actions":[{
                                         "type":"text",
                                         "text":"にゃ"
-                                    },
+                                    }],
                                     "defaultAction":{
                                         "type":"text",
                                         "text":"にゃ"
