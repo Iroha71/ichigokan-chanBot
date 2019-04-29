@@ -18,80 +18,48 @@ server.post('/bot/webhook',line.middleware(line_config),(req,res,next)=>{
     req.body.events.forEach((event) => {
         if(event.type=="message" && event.message.type=="text"){
             if(event.message.text=="飲食店"){
-                // request.get({
-                //     uri: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
-                //     headers: {'Content-type': 'application/json'},
-                //     qs:{
-                //         key: key,
-                //         query: "レストラン",
-                //         language: "ja",
-                //         radius: 1500,
-                //         location: "33.583389,130.421172"
-                //     },
-                //     json: true
-                // },function(err,req,data){
-                //     console.log(data.results);
-                //     // let res=[];
-                //     // for(let i=0;i<3;i++){
-                //     //     // res[i]={
-                //     //     //     "type": "bubble",
-                //     //     //     "body":{
-                //     //     //         "type": "box",
-                //     //     //         "layout": "horizontal",
-                //     //     //         "contents":[
-                //     //     //             {
-                //     //     //                 "type": "text",
-                //     //     //                 "text": data.results[i].name,  
-                //     //     //             }
-                //     //     //         ]
-                //     //     //     },
-                //     //     //     "footer":{
-                //     //     //         "type":"box",
-                //     //     //         "layout": "horizontal",
-                //     //     //         "contents":[
-                //     //     //             {
-                //     //     //                 "type": "button",
-                //     //     //                 "style": "primary",
-                //     //     //                 "action":{
-                //     //     //                     "type": "text",
-                //     //     //                     "label":"気になる",
-                //     //     //                     "text": "にゃにゃ"
-                //     //     //                 }
-                //     //     //             }
-                //     //     //         ]
-                //     //     //     }
-                //     //     // }
-                //     // }
-                    
-                // })
-                const resp={
-                    "type": "template",
-                    "altText": "カルーセルテキスト",
-                    "template":{
-                        "type": "carousel",
-                        "columns":[
-                            {
-                                "title": "menu",
-                                "text": "text",
-                                "actions":[{
-                                    "type":"message",
-                                    "label":"にゃ",
-                                    "text":"にゃ"
-                                }]
-                            },
-                            {
-                                "title": "menu2",
-                                "text": "text",
-                                "actions":[{
-                                    "type":"message",
-                                    "label":"にゃ",
-                                    "text":"にゃ"
-                                }]
-                            }
-                        ]
-                    }
-                };
-                bot.replyMessage(event.replyToken,resp);
+                request.get({
+                    uri: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
+                    headers: {'Content-type': 'application/json'},
+                    qs:{
+                        key: key,
+                        query: "レストラン",
+                        language: "ja",
+                        radius: 1500,
+                        location: "33.583389,130.421172"
+                    },
+                    json: true
+                },function(err,req,data){
+                    console.log(data.results);
+                    const resp={
+                        "type": "template",
+                        "altText": "カルーセルテキスト",
+                        "template":{
+                            "type": "carousel",
+                            "columns":[
+                                {
+                                    "title": "menu",
+                                    "text": "text",
+                                    "actions":[{
+                                        "type":"message",
+                                        "label":"にゃ",
+                                        "text":"にゃ"
+                                    }]
+                                },
+                                {
+                                    "title": "menu2",
+                                    "text": "text",
+                                    "actions":[{
+                                        "type":"message",
+                                        "label":"にゃ",
+                                        "text":"にゃ"
+                                    }]
+                                }
+                            ]
+                        }
+                    };
+                    bot.replyMessage(event.replyToken,resp);
+                })
             }
         }
     });
